@@ -1,0 +1,139 @@
+.addproduct {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 800px;
+  padding: 30px 50px;
+  margin: 20px auto;
+  border-radius: 6px;
+  background-color: green;
+  /* overflow-y: auto;
+  max-height: calc(100vh - 40px); */
+}
+
+.addproduct-itemfield {
+  width: calc(100% - 20px);
+
+  color: #7b7b7b;
+  font-size: 16px;
+}
+.addproduct-itemfield img {
+  padding-top: 20px;
+}
+
+.addproduct-itemfield input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  border-radius: 4px;
+  padding-left: 15px;
+  border: 1px solid #c3c3c3;
+  outline: none;
+  color: #7b7b7b;
+  font-family: Poppins;
+  font-size: 14px;
+}
+
+.addproduct-price {
+  display: flex;
+  gap: 40px;
+  width: 600px;
+}
+
+.add-product-selector {
+  padding: 10px 10px;
+  width: 100px;
+  height: 50px;
+  font-size: 14px;
+  color: #7b7b7b;
+  border: 1px solid #7b7b7b8d;
+  border-radius: 4px;
+}
+
+.addproduct-itemfield div {
+  display: flex;
+  width: 25%;
+}
+
+.addproduct-thumbnail-img {
+  height: 120px;
+  width: 120px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.addproduct-itemfield div img {
+  margin-left: -30px;
+}
+
+.addproduct-btn {
+  margin-top: 30px;
+  width: 160px;
+  height: 50px;
+  border-radius: 6px;
+  background: #6079ff;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media (max-width: 800px) {
+  .addproduct {
+    width: 100%;
+    padding: 30px;
+  }
+
+  .addproduct-itemfield {
+    width: 600px;
+    color: #7b7b7b;
+    font-size: 16px;
+    padding-left: 30px;
+  }
+
+  .addproduct-price {
+    display: flex;
+    gap: 40px;
+    width: 630px;
+  }
+}
+
+@media (max-width: 600px) {
+  .addproduct {
+    width: 100%;
+    padding: 30px;
+  }
+
+  .addproduct-itemfield {
+    width: 500px;
+    color: #7b7b7b;
+    font-size: 16px;
+    padding-left: 25px;
+  }
+
+  .addproduct-price {
+    display: flex;
+    gap: 20px;
+    width: 520px;
+  }
+}
+
+@media (max-width: 500px) {
+  .addproduct {
+    width: 100%;
+    padding: 30px;
+  }
+
+  .addproduct-itemfield {
+    width: 450px;
+    color: #7b7b7b;
+    font-size: 16px;
+    padding-left: 20px;
+  }
+
+  .addproduct-price {
+    display: flex;
+    gap: 20px;
+    width: 470px;
+  }
+}

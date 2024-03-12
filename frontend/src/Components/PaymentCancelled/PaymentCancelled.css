@@ -1,0 +1,42 @@
+/* button {
+  margin: 120px auto;
+  width: 233px;
+  height: 69px;
+  border-radius: 75px;
+  background: #ff4141;
+  color: #ededed;
+  font-size: 18px;
+  font-weight: 500;
+} */
+
+.payment-cancelled-container {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 290px;
+  margin: 0 auto;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.red-cross-image {
+  width: 100px;
+  height: 100px;
+}
+
+.return-to-home-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #ff4141;
+  color: #ededed;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.return-to-home-button:hover {
+  background-color: #0056b3;
+}
