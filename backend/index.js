@@ -143,6 +143,16 @@ const Users = mongoose.model("Users", {
     type: Date,
     default: Date.now,
   },
+  orders: [
+    {
+      products: [],
+      address: {},
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
 });
 
 app.post("/signup", async (req, res) => {
@@ -217,26 +227,12 @@ app.get("/popularInWomen", async (req, res) => {
   res.send(popularInWomen);
 });
 
-// app.post("/createCheckoutSession", async (req, res) => {
-//   const { products } = req.body;
-//   console.log(products);
-//   const lineItems = products.map((product) => ({
-//     price_data: {
-//       currency: "₹",
-//       productData: {
-//         name: product.name,
-//         images: [product.image],
-//       },
-//       unitAmount: product.new_price,
-//     },
-//     quantity: 13,
-//   }));
-// });
-
 const findUser = async (req, res, next) => {
   const token = req.header("auth-token");
   if (!token) {
-    res.status(401).send({ error: "Please authenticate using a valid token" });
+    res
+      .status(401)
+      .send({ error: "Please authenticate using a valid token ***" });
   } else {
     try {
       const data = jwt.verify(token, "secret_ecom");
@@ -245,10 +241,23 @@ const findUser = async (req, res, next) => {
     } catch (error) {
       res
         .status(401)
-        .send({ error: "Please authenticate using a valid token" });
+        .send({ error: "Please authenticate using a valid token ----" });
     }
   }
 };
+app.get("/orders", findUser, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    console.log(userId);
+    const user = await Users.findOne({ _id: userId }).sort({ createdAt: -1 });
+    console.log(user.orders);
+
+    res.status(200).json(user.orders);
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 app.post("/addToCart", findUser, async (req, res) => {
   console.log("Add Cart");
@@ -280,6 +289,57 @@ app.post("/getCart", findUser, async (req, res) => {
   console.log("Get Cart");
   let userData = await Users.findOne({ _id: req.user.id });
   res.json(userData.cartData);
+});
+
+app.post("/createCheckoutSession", findUser, async (req, res) => {
+  const products = req.body.body.products;
+  const address = req.body.body.address;
+  console.log("address", address);
+  console.log("products", products);
+  console.log(req.user);
+  const lineItems = products.map((product) => ({
+    price_data: {
+      currency: "usd",
+      product_data: {
+        name: product.name,
+        images: [product.image],
+      },
+
+      unit_amount: product.new_price,
+    },
+    quantity: product.quantity,
+  }));
+
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: lineItems,
+    shipping_address_collection: {
+      allowed_countries: ["US", "CA", "KE"],
+    },
+    mode: "payment",
+    success_url: `http://localhost:3000/checkout-success`,
+    cancel_url: `http://localhost:3000/not-found`,
+  });
+  res.json({ id: session.id });
+
+  if (session.id) {
+    const userId = req.user.id;
+
+    try {
+      // Save order and address in the user's collection
+      await Users.findByIdAndUpdate(
+        userId,
+        {
+          $push: { orders: { products, address, date: Date.now() } },
+        },
+        { new: true }
+      );
+
+      console.log("Order and address saved successfully for user:", userId);
+    } catch (error) {
+      console.error("Error saving order and address:", error);
+    }
+  }
 });
 
 app.listen(port, (error) => {

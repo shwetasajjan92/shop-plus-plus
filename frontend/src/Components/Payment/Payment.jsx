@@ -1,47 +1,43 @@
-import React, { useState } from "react";
-import "./Payment.css";
+import React from "react";
+import { loadStripe } from "@stripe/stripe-js";
 
-const Payment = ({ totalAmount, address, onPayment }) => {
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvv, setCvv] = useState("");
+const Payment = ({ order, address }) => {
+  const makePayment = async () => {
+    const stripe = await loadStripe(
+      "pk_test_51OtWHKSAc6aIc4xETrAoABKeyPSVlAFAAlqhN7vOMQs7TKyvvDPMxizCUQXtYPXrZ1cpJbVLOjqHJwBBKgQtEewz00RLpTDqhU"
+    );
 
-  const handlePayment = () => {
-    // You can integrate with Stripe or any other payment gateway here
-    // For demonstration purpose, I'm assuming a successful payment
-    onPayment();
+    console.log("Address : ", address);
+
+    const body = {
+      products: order,
+      address: address,
+    };
+
+    const response = await fetch(
+      `http://localhost:4000/createCheckoutSession`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": `${localStorage.getItem("auth-token")}`,
+        },
+        body: JSON.stringify({
+          body,
+        }),
+      }
+    );
+
+    const session = await response.json();
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+    if (result.error) {
+      console.log(result.error);
+    }
   };
 
-  return (
-    <div className="payment-form">
-      <h2>Payment Details</h2>
-      <div>
-        <label>Card Number:</label>
-        <input
-          type="text"
-          value={cardNumber}
-          onChange={(e) => setCardNumber(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Expiry Date:</label>
-        <input
-          type="text"
-          value={expiry}
-          onChange={(e) => setExpiry(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>CVV:</label>
-        <input
-          type="text"
-          value={cvv}
-          onChange={(e) => setCvv(e.target.value)}
-        />
-      </div>
-      <button onClick={handlePayment}>Proceed to Payment</button>
-    </div>
-  );
+  return <button onClick={makePayment}>Check out</button>;
 };
 
 export default Payment;

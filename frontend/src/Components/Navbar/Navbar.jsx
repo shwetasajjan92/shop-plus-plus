@@ -53,17 +53,23 @@ const Navbar = () => {
           </Link>
           {menu === "women" ? <hr /> : <></>}
         </li>
+
         <li onClick={() => setMenu("kids")}>
           <Link style={style} to="/kids">
             Kids
           </Link>
           {menu === "kids" ? <hr /> : <></>}
         </li>
-
-        {/* <li>Shop </li>
-        <li>Men </li>
-        <li>Women </li>
-        <li>Kids</li> */}
+        {localStorage.getItem("auth-token") ? (
+          <li onClick={() => setMenu("orders")}>
+            <Link style={style} to="/orders">
+              Orders
+            </Link>
+            {menu === "orders" ? <hr /> : <></>}
+          </li>
+        ) : (
+          <></>
+        )}
       </ul>
       <div className="nav-login-cart">
         {localStorage.getItem("auth-token") ? (

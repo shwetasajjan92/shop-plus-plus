@@ -1,44 +1,12 @@
-/* Payment.css */
-
-.payment-form {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.payment-form h2 {
-  margin-bottom: 20px;
-}
-
-.payment-form div {
-  margin-bottom: 15px;
-}
-
-.payment-form label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.payment-form input {
-  width: 95%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-.payment-form button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
+.cartitems-total button {
+  width: 220px;
+  height: 50px;
+  outline: none;
   border: none;
-  border-radius: 3px;
+  background: #ff5a5a;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
-}
-
-.payment-form button:hover {
-  background-color: #0056b3;
+  border-radius: 10px;
 }
