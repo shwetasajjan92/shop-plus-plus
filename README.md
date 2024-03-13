@@ -52,7 +52,7 @@ https://github.com/shwetasajjan92/shop-plus-plus
 3. Start the Development Server:
    node index.js
 
-   As I have deployed the frontend and backend both links in the code will not be having local host instead links aws server will be present.
+As I have deployed the frontend and backend both links in the code will not be having local host instead links aws server will be present.
 
 
 
