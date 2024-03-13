@@ -305,7 +305,7 @@ app.post("/createCheckoutSession", findUser, async (req, res) => {
         images: [product.image],
       },
 
-      unit_amount: product.new_price,
+      unit_amount: Math.round(product.new_price * 100),
     },
     quantity: product.quantity,
   }));
@@ -317,8 +317,8 @@ app.post("/createCheckoutSession", findUser, async (req, res) => {
       allowed_countries: ["US", "CA", "KE"],
     },
     mode: "payment",
-    success_url: `http://localhost:3000/checkout-success`,
-    cancel_url: `http://localhost:3000/not-found`,
+    success_url: `http://localhost:3001/checkout-success`,
+    cancel_url: `http://localhost:3001/not-found`,
   });
   res.json({ id: session.id });
 
@@ -326,7 +326,6 @@ app.post("/createCheckoutSession", findUser, async (req, res) => {
     const userId = req.user.id;
 
     try {
-      // Save order and address in the user's collection
       await Users.findByIdAndUpdate(
         userId,
         {

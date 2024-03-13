@@ -32,7 +32,8 @@ const Order = () => {
   }, []); // Run once on component mount
 
   if (orders.length > 0) {
-    const address = orders[0].address;
+    console.log("........", orders);
+    const address = orders[orders.length - 1].address;
     addressString = `${address.street}, ${address.city}, ${address.pincode}, ${address.state} `;
   }
 
@@ -43,13 +44,14 @@ const Order = () => {
         <div className="cartitems-format-main">
           <p>Products</p>
           <p>Title</p>
-          <p>Price</p>
+
           <p>Quantity</p>
+          <p>Price</p>
           <p>Total</p>
         </div>
         <hr />
         {orders.length > 0
-          ? orders[0].products.map((item) => (
+          ? orders[orders.length - 1].products.map((item) => (
               <div
                 key={item.id}
                 className="cartitems-format-main cartitems-format"
@@ -60,10 +62,9 @@ const Order = () => {
                   alt=""
                 />
                 <p className="cartitems-product-title">{item.name}</p>
-                <button className="cartitems-quantity">
-                  ${item.new_price}
-                </button>
-                <p>{item.quantity}</p>
+                <button className="cartitems-quantity">{item.quantity}</button>
+
+                <p> ${item.new_price}</p>
                 <p>${item.new_price * item.quantity}</p>
               </div>
             ))
