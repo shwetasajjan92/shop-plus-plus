@@ -1,8 +1,8 @@
-## MERN Stack - Shoppluplus(Ecommerce website)
+# MERN Stack - Shopplusplus(Ecommerce website)
 
 This project is a full-stack e-commerce application built using the MERN stack. It includes features for browsing products based on category(men, women, kids), adding them to a shopping cart, placing orders, and managing user accounts.
 
-# Features
+## Features
 
 Product Catalog: Browse products by category and view detailed product information.
 Shopping Cart: Add products to the cart, update quantities, and remove items.
@@ -10,7 +10,7 @@ Checkout Process: Enter shipping details, choose payment method, and place order
 User Authentication: Signup, login,
 Order History: View last order details.
 
-# Technologies Used
+## Technologies Used
 
 1. Frontend: React.js, React Router (for routing)
 
@@ -24,11 +24,11 @@ Order History: View last order details.
 
 6. MongoDB Atlas for cloud database hosting Installation
 
-#Repo
+##Repo
 Clone the repository using the link below
 https://github.com/shwetasajjan92/shop-plus-plus
 
-#Frontend
+##Frontend
 1. Installation
    Navigate to the Frontend Directory:
    cd shop-plus-plus/frontend
@@ -40,7 +40,7 @@ https://github.com/shwetasajjan92/shop-plus-plus
 3. Start the Development Server:
    npm start
 
-#Backend
+##Backend
 1. Installation
    Navigate to the Backend Directory:
    cd shop-plus-plus/backend
