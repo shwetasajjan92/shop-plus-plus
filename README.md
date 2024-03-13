@@ -24,11 +24,11 @@ Order History: View last order details.
 
 6. MongoDB Atlas for cloud database hosting Installation
 
-##Repo
+## Repo
 Clone the repository using the link below
 https://github.com/shwetasajjan92/shop-plus-plus
 
-##Frontend
+## Frontend
 1. Installation
    Navigate to the Frontend Directory:
    cd shop-plus-plus/frontend
@@ -40,7 +40,7 @@ https://github.com/shwetasajjan92/shop-plus-plus
 3. Start the Development Server:
    npm start
 
-##Backend
+## Backend
 1. Installation
    Navigate to the Backend Directory:
    cd shop-plus-plus/backend
