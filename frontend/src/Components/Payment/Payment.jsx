@@ -15,7 +15,7 @@ const Payment = ({ order, address }) => {
     };
 
     const response = await fetch(
-      `http://localhost:4000/createCheckoutSession`,
+      `http://54.146.34.43:3000/createCheckoutSession`,
       {
         method: "POST",
         headers: {

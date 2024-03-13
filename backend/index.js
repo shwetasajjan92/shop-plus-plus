@@ -1,4 +1,4 @@
-const port = 4000;
+const port = 3000;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -317,8 +317,8 @@ app.post("/createCheckoutSession", findUser, async (req, res) => {
       allowed_countries: ["US", "CA", "KE"],
     },
     mode: "payment",
-    success_url: `http://localhost:3001/checkout-success`,
-    cancel_url: `http://localhost:3001/not-found`,
+    success_url: `http://shopplusplus.s3-website-us-east-1.amazonaws.com/checkout-success`,
+    cancel_url: `http://shopplusplus.s3-website-us-east-1.amazonaws.com/not-found`,
   });
   res.json({ id: session.id });
 

@@ -8,7 +8,7 @@ const Order = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch("http://localhost:4000/orders", {
+        const response = await fetch("http://54.146.34.43:3000/orders", {
           method: "GET",
           headers: {
             Accept: "application/json", // Corrected accept type
