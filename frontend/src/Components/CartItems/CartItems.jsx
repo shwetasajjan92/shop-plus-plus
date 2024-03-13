@@ -1,18 +1,18 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./CartItems.css";
 import remove_icon from "../Assets/cart_cross_icon.png";
 import { ShopContext } from "../../Context/ShopContext";
-import { loadStripe } from "@stripe/stripe-js";
+import Payment from "../../Components/Payment/Payment";
 
 const CartItems = () => {
   const { all_product, cartItems, removeFromCart, getTotalCartAmount } =
     useContext(ShopContext);
-  // const order = all_product.filter((e) => {
-  //   if (cartItems[e] > 0) {
-  //     e.quantity = cartItems[e.id];
-  //     return e;
-  //   }
-  // });
+  const navigate = useNavigate();
+
+  const order = all_product
+    .filter((e) => cartItems[e.id] > 0)
+    .map((e) => ({ ...e, quantity: cartItems[e.id] }));
 
   const [address, setAddress] = useState({
     street: "",
@@ -24,33 +24,6 @@ const CartItems = () => {
 
   const handleChange = (e) => {
     setAddress({ ...address, [e.target.name]: e.target.value });
-  };
-
-  const makePayment = async () => {
-    const stripe = await loadStripe(
-      "pk_test_51OtWHKSAc6aIc4xETrAoABKeyPSVlAFAAlqhN7vOMQs7TKyvvDPMxizCUQXtYPXrZ1cpJbVLOjqHJwBBKgQtEewz00RLpTDqhU"
-    );
-    const body = {
-      products: cartItems,
-    };
-
-    const response = await fetch(
-      "http://localhost:4000/createCheckoutSession",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-    );
-    const session = await response.json();
-    const result = stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-    if (result.error) {
-      console.log(result.error);
-    }
   };
 
   return (
@@ -76,11 +49,11 @@ const CartItems = () => {
                     alt=""
                   />
                   <p className="cartitems-product-title">{e.name}</p>
-                  <p>₹{e.new_price}</p>
+                  <p>${e.new_price}</p>
                   <button className="cartitems-quantity">
                     {cartItems[e.id]}
                   </button>
-                  <p>₹{e.new_price * cartItems[e.id]}</p>
+                  <p>${e.new_price * cartItems[e.id]}</p>
                   <img
                     onClick={() => {
                       removeFromCart(e.id);
@@ -103,7 +76,7 @@ const CartItems = () => {
             <div>
               <div className="cartitems-total-item">
                 <p>Subtotal</p>
-                <p>₹{getTotalCartAmount()}</p>
+                <p>${getTotalCartAmount()}</p>
               </div>
               <hr />
               <div className="cartitems-total-item">
@@ -113,7 +86,7 @@ const CartItems = () => {
               <hr />
               <div className="cartitems-total-item">
                 <h3>Total</h3>
-                <h3>₹{getTotalCartAmount()}</h3>
+                <h3>${getTotalCartAmount()}</h3>
               </div>
             </div>
             <div className="address-form">
@@ -164,7 +137,19 @@ const CartItems = () => {
                 />
               </div>
             </div>
-            <button onClick={makePayment}>PROCEED TO CHECKOUT</button>
+
+            {localStorage.getItem("auth-token") ? (
+              <Payment order={order} address={address} />
+            ) : (
+              <button
+                onClick={() => {
+                  navigate("/login");
+                  window.scrollTo(0, 0);
+                }}
+              >
+                LOGIN TO PROCEED
+              </button>
+            )}
           </div>
         </div>
       </div>
