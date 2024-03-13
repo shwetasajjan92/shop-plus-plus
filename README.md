@@ -24,7 +24,7 @@ Order History: View last order details.
 
 6. MongoDB Atlas for cloud database hosting Installation
 
-Installation
+#Repo
 Clone the repository using the link below
 https://github.com/shwetasajjan92/shop-plus-plus
 
