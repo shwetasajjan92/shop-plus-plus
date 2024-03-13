@@ -60,8 +60,10 @@ const Order = () => {
                   alt=""
                 />
                 <p className="cartitems-product-title">{item.name}</p>
-                <button className="cartitems-quantity">{item.quantity}</button>
-                <p>$ {item.new_price}</p>
+                <button className="cartitems-quantity">
+                  ${item.new_price}
+                </button>
+                <p>{item.quantity}</p>
                 <p>${item.new_price * item.quantity}</p>
               </div>
             ))
